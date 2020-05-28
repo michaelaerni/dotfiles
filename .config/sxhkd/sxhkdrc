@@ -11,7 +11,7 @@ super + @space
 	rofi -show drun
 
 # lock screen
-super + l
+super + F9
 	dm-tool lock
 
 # make sxhkd reload its configuration files:
