@@ -12,7 +12,7 @@
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -33,9 +33,9 @@
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  #padding:
-  #  x: 0
-  #  y: 0
+  padding:
+    x: 8
+    y: 8
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -88,7 +88,7 @@
   #multiplier: 3
 
 # Font configuration
-#font:
+font:
   # Normal (roman) font face
   #normal:
     # Font family
@@ -136,7 +136,7 @@
     #style: Bold Italic
 
   # Point size
-  #size: 11.0
+  size: 10.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -168,7 +168,75 @@
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
+
+# Colour Schemes
+schemes:
+  nord: &nord
+    # Default colors
+    primary:
+      background: '#2E3440'
+      foreground: '#D8DEE9'
+
+    # Normal colors
+    normal:
+      black:   '#3B4252'
+      red:     '#BF616A'
+      green:   '#A3BE8C'
+      yellow:  '#EBCB8B'
+      blue:    '#81A1C1'
+      magenta: '#B48EAD'
+      cyan:    '#88C0D0'
+      white:   '#E5E9F0'
+
+    # Bright colors
+    bright:
+      black:   '#4C566A'
+      red:     '#BF616A'
+      green:   '#A3BE8C'
+      yellow:  '#EBCB8B'
+      blue:    '#81A1C1'
+      magenta: '#B48EAD'
+      cyan:    '#8FBCBB'
+      white:   '#ECEFF4'
+
+    # Colors (Snazzy)
+    snazzy: &snazzy
+      # Default colors
+      primary:
+        background: '#282a36'
+        foreground: '#eff0eb'
+
+      cursor:
+        cursor: '#97979b'
+
+      selection:
+        text:       '#282a36'
+        background: '#feffff'
+
+      # Normal colors
+      normal:
+        black:   '#282a36'
+        red:     '#ff5c57'
+        green:   '#5af78e'
+        yellow:  '#f3f99d'
+        blue:    '#57c7ff'
+        magenta: '#ff6ac1'
+        cyan:    '#9aedfe'
+        white:   '#f1f1f0'
+
+      # Bright colors
+      bright:
+        black:   '#686868'
+        red:     '#ff5c57'
+        green:   '#5af78e'
+        yellow:  '#f3f99d'
+        blue:    '#57c7ff'
+        magenta: '#ff6ac1'
+        cyan:    '#9aedfe'
+        white:   '#eff0eb'
+
+colors: *nord
 
 # Colors (Tomorrow Night Bright)
 #colors:
@@ -278,7 +346,7 @@
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.8
+background_opacity: 0.9
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
