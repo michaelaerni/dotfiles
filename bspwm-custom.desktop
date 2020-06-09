@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=bspwm
+Comment=Binary space partitioning window manager
+Exec=env _JAVA_AWT_WM_NONREPARENTING=1 bspwm
+Type=Application
