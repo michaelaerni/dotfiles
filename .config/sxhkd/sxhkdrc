@@ -18,6 +18,14 @@ super + F9
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# volume
+XF86Audio{RaiseVolume,LowerVolume}
+	pactl set-sink-mute 1 false; pactl set-sink-volume 1 {+,-}5%
+
+# mute/unmute
+XF86AudioMute
+	pactl set-sink-mute 1 toggle
+
 #
 # bspwm hotkeys
 #
