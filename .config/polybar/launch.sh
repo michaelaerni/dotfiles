@@ -10,6 +10,12 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
  
 # Launch Polybar, using default config location ~/.config/polybar/config
 echo "---" | tee -a /tmp/polybar1.log
-polybar mainbar >> /tmp/polybar1.log 2>&1 &
+polybar --reload mainbar >> /tmp/polybar-main.log 2>&1 &
+
+# Launch side bars if multiple monitors are connected
+# FIXME: This does not respect ad-hoc connected monitors
+for m in $(polybar --list-monitors | grep -v '(primary)' | cut -d":" -f1); do
+    MONITOR=$m polybar --reload sidebar >> "/tmp/polybar-side-${m}.log" 2>&1 &
+done
 
 echo "Bars launched..."
