@@ -18,109 +18,112 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #D0F1F8F3
-background-alt = #70D8D0C9
+background = #9F78A1BB
+background-alt = #3F78A1BB
 ;foreground = ${xrdb:color7:#222}
-foreground = #025981
-foreground-alt = #78A1BB
+foreground = #F1F8F3
+foreground-alt = #60F1F8F3
 primary = #BFA89E
 secondary = #8B786D
 alert = #DB504A
 
-[bar/mainbar]
-;monitor = ${env:MONITOR:HDMI-1}
+[layout]
 width = 100%
-height = 26
-;offset-x = 1%
-;offset-y = 1%
-radius = 0.0
-fixed-center = false
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-line-size = 3
-line-color = #f00
-
+height = 24
+fixed-center = False
+line-size = 0
 border-size = 0
-border-color = #00000000
-
 padding-left = 0
 padding-right = 2
-
 module-margin-left = 1
 module-margin-right = 2
 
+[fonts]
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
+[wm]
+wm-restack = bspwm
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+[general]
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+[bar/mainbar]
+;monitor = ${env:MONITOR:HDMI-1}
+width = ${layout.width}
+height = ${layout.height}
+fixed-center = ${layout.fixed-center}
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = ${layout.line-size}
+border-size = ${layout.border-size}
+
+padding-left = ${layout.padding-left}
+padding-right = ${layout.padding-right}
+module-margin-left = ${layout.module-margin-left}
+module-margin-right = ${layout.module-margin-right}
+
+font-0 = ${fonts.font-0}
+font-1 = ${fonts.font-1}
+font-2 = ${fonts.font-2}
+
+wm-restack = ${wm.wm-restack}
+scroll-up = ${wm.scroll-up}
+scroll-down = ${wm.scroll-down}
+
+cursor-click = ${general.cursor-click}
+cursor-scroll = ${general.cursor-scroll}
+
+; TODO: Take care of modules
 modules-left = bspwm
 modules-center = mpd
 modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
-;tray-background = #0063ff
-
-wm-restack = bspwm
-
-;override-redirect = true
-
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
 
 [bar/sidebar]
 monitor = ${env:MONITOR:}
-width = 100%
-height = 26
-;offset-x = 1%
-;offset-y = 1%
-radius = 0.0
-fixed-center = false
+width = ${layout.width}
+height = ${layout.height}
+fixed-center = ${layout.fixed-center}
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
-line-color = #f00
+line-size = ${layout.line-size}
+border-size = ${layout.border-size}
 
-border-size = 0
-border-color = #00000000
+padding-left = ${layout.padding-left}
+padding-right = ${layout.padding-right}
+module-margin-left = ${layout.module-margin-left}
+module-margin-right = ${layout.module-margin-right}
 
-padding-left = 0
-padding-right = 2
+font-0 = ${fonts.font-0}
+font-1 = ${fonts.font-1}
+font-2 = ${fonts.font-2}
 
-module-margin-left = 1
-module-margin-right = 2
+wm-restack = ${wm.wm-restack}
+scroll-up = ${wm.scroll-up}
+scroll-down = ${wm.scroll-down}
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+cursor-click = ${general.cursor-click}
+cursor-scroll = ${general.cursor-scroll}
 
 modules-left = bspwm
 modules-center =
-modules-right =
+modules-right = date
 
 ; no tray on sidebar
 tray-position =
 
-wm-restack = bspwm
-
-;override-redirect = true
-
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -128,15 +131,12 @@ blacklist-0 = num lock
 
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
 
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
@@ -153,7 +153,6 @@ type = internal/bspwm
 
 label-focused = %index%
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
 label-occupied = %index%
@@ -210,7 +209,6 @@ type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
 label = %percentage:2%%
 
 [module/memory]
@@ -218,21 +216,19 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
 label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
+; TODO: Make this parameterizable
 interface = wlp108s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
@@ -245,17 +241,16 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = net0
+; TODO: Make this parameterizable
+interface = enp0s31f6
 interval = 3.0
 
-format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
@@ -271,7 +266,6 @@ time-alt = %H:%M:%S
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
 
 label = %date% %time%
 
@@ -302,6 +296,8 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
+interval = 2
+
 [module/battery]
 type = internal/battery
 battery = BAT1
@@ -309,14 +305,11 @@ adapter = ACAD
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -337,13 +330,12 @@ animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
+; TODO: Make this parameterizable
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
 label-warn = %temperature-c%
@@ -394,3 +386,9 @@ screenchange-reload = true
 [global/wm]
 margin-top = 0
 margin-bottom = 0
+
+; unused modules
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
