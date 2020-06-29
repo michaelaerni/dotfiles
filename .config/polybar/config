@@ -27,63 +27,43 @@ primary = #BFA89E
 secondary = #8B786D
 alert = #DB504A
 
-[layout]
+[bar/base]
 width = 100%
 height = 24
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
 fixed-center = False
+
 line-size = 0
 border-size = 0
+
 padding-left = 0
 padding-right = 2
+
 module-margin-left = 1
 module-margin-right = 2
 
-[fonts]
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
-[wm]
 wm-restack = bspwm
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 
-[general]
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 
 [bar/mainbar]
 ;monitor = ${env:MONITOR:HDMI-1}
-width = ${layout.width}
-height = ${layout.height}
-fixed-center = ${layout.fixed-center}
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-line-size = ${layout.line-size}
-border-size = ${layout.border-size}
-
-padding-left = ${layout.padding-left}
-padding-right = ${layout.padding-right}
-module-margin-left = ${layout.module-margin-left}
-module-margin-right = ${layout.module-margin-right}
-
-font-0 = ${fonts.font-0}
-font-1 = ${fonts.font-1}
-font-2 = ${fonts.font-2}
-
-wm-restack = ${wm.wm-restack}
-scroll-up = ${wm.scroll-up}
-scroll-down = ${wm.scroll-down}
-
-cursor-click = ${general.cursor-click}
-cursor-scroll = ${general.cursor-scroll}
+inherit = bar/base
 
 ; TODO: Take care of modules
 modules-left = bspwm
-modules-center = mpd
+modules-center = 
 modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
@@ -91,31 +71,7 @@ tray-padding = 2
 
 [bar/sidebar]
 monitor = ${env:MONITOR:}
-width = ${layout.width}
-height = ${layout.height}
-fixed-center = ${layout.fixed-center}
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-line-size = ${layout.line-size}
-border-size = ${layout.border-size}
-
-padding-left = ${layout.padding-left}
-padding-right = ${layout.padding-right}
-module-margin-left = ${layout.module-margin-left}
-module-margin-right = ${layout.module-margin-right}
-
-font-0 = ${fonts.font-0}
-font-1 = ${fonts.font-1}
-font-2 = ${fonts.font-2}
-
-wm-restack = ${wm.wm-restack}
-scroll-up = ${wm.scroll-up}
-scroll-down = ${wm.scroll-down}
-
-cursor-click = ${general.cursor-click}
-cursor-scroll = ${general.cursor-scroll}
+inherit = bar/base
 
 modules-left = bspwm
 modules-center =
@@ -169,19 +125,6 @@ label-empty-padding = 2
 ; Separator in between workspaces
 ; label-separator = |
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
 [module/xbacklight]
 type = internal/xbacklight
 
@@ -191,12 +134,9 @@ label = BL
 bar-width = 10
 bar-indicator = |
 bar-indicator-foreground = #fff
-bar-indicator-font = 2
 bar-fill = ─
-bar-fill-font = 2
 bar-fill-foreground = #9f78e1
 bar-empty = ─
-bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
 [module/backlight-acpi]
@@ -289,11 +229,8 @@ bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
-bar-volume-indicator-font = 2
 bar-volume-fill = ─
-bar-volume-fill-font = 2
 bar-volume-empty = ─
-bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
 interval = 2
@@ -392,3 +329,16 @@ margin-bottom = 0
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
