@@ -1,6 +1,6 @@
 #! /bin/sh
 
-deadd-notification-center &
+dunst &
 sxhkd &
 picom &
 $HOME/.fehbg
