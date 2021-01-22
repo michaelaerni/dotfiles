@@ -172,6 +172,39 @@ draw_bold_text_with_bright_colors: true
 
 # Colour Schemes
 schemes:
+  beach: &beach
+    bright:
+      black: '#373b41'
+      blue: '#6696b7'
+      cyan: '#267592'
+      green: '#c0d47b'
+      magenta: '#8688ac'
+      red: '#da4b44'
+      white: '#fefcfd'
+      yellow: '#ecffad'
+
+    cursor:
+      cursor: '#232F2F'
+      text: '#232f2f'
+
+    normal:
+      black: '#1b1c14'
+      blue: '#4a7b9d'
+      cyan: '#1d5b72'
+      green: '#747d45'
+      magenta: '#54577c'
+      red: '#a92922'
+      white: '#ced5df'
+      yellow: '#d8f500'
+
+    primary:
+      background: '#e6e8ef'
+      foreground: '#232f2f'
+
+    selection:
+      background: '#CFCBC8'
+      text: '#55686F'
+
   nord: &nord
     # Default colors
     primary:
@@ -236,7 +269,7 @@ schemes:
         cyan:    '#9aedfe'
         white:   '#eff0eb'
 
-colors: *nord
+colors: *beach
 
 # Colors (Tomorrow Night Bright)
 #colors:
@@ -346,7 +379,7 @@ colors: *nord
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
+background_opacity: 0.8
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
