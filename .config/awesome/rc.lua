@@ -17,6 +17,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+local dpi = require("beautiful.xresources").apply_dpi
+local lain  = require("lain")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -45,7 +47,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+theme_name = "cherrytrees"
+beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -61,7 +64,6 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -74,6 +76,7 @@ awful.layout.layouts = {
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
+    awful.layout.suit.floating,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -104,6 +107,23 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
+
+-- Pulse volume
+volume = lain.widget.pulsebar()
+volume.bar:buttons(awful.util.table.join(
+    awful.button({}, 1, function() -- left click
+        os.execute(string.format("pactl set-sink-mute %d toggle", volume.device))
+        volume.update()
+    end),
+    awful.button({}, 4, function() -- scroll up
+        os.execute(string.format("pactl set-sink-volume %d +1%%", volume.device))
+        volume.update()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        os.execute(string.format("pactl set-sink-volume %d -1%%", volume.device))
+        volume.update()
+    end)
+))
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -196,7 +216,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(24) })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -210,6 +230,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            volume.bar,
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
@@ -528,7 +549,7 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c) : setup {
+    awful.titlebar(c, beautiful.titlebar) : setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
