@@ -47,7 +47,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-theme_name = "cherrytrees"
+theme_name = "light"
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme_name))
 
 -- This is used later as the default terminal and editor to run.
@@ -105,9 +105,6 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
 -- Pulse volume
 volume = lain.widget.pulsebar()
 volume.bar:buttons(awful.util.table.join(
@@ -127,7 +124,8 @@ volume.bar:buttons(awful.util.table.join(
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+dateclock = wibox.widget.textclock("%a, %b %d")
+timeclock = wibox.widget.textclock("%H:%M")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -216,7 +214,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(24) })
+    s.mywibox = awful.wibar({ position = "top", screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -230,10 +228,11 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            spacing = dpi(8), -- TODO: Make this themeable
             volume.bar,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
+            wibox.container.margin(wibox.widget.systray(), dpi(0), dpi(0), dpi(4), dpi(4)), -- TODO: Make this themeable
+            dateclock,
+            timeclock,
             s.mylayoutbox,
         },
     }

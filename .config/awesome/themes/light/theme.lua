@@ -10,7 +10,7 @@ local gears = require("gears")
 
 -- {{{ Main
 local theme = {}
-theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/cherrytrees"
+theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/light"
 theme.wallpaper = theme.dir .. "/background.jpg"
 -- }}}
 
@@ -37,7 +37,7 @@ theme.border_marked = "#CC9393"
 
 -- {{{ Titlebars
 theme.titlebar = {
-	size = dpi(36),
+	size = dpi(32),
 	position = "top",
 }
 theme.titlebar_bg_focus  = theme.bg_focus
@@ -89,6 +89,12 @@ theme.taglist_squares_unsel = theme.dir .. "/taglist/squarez.png"
 -- {{{ Misc
 theme.awesome_icon           = theme.dir .. "/awesome-icon.png"
 theme.menu_submenu_icon      = themes_path .. "default/submenu.png"
+-- }}}
+
+-- {{{ Wibar
+theme.systray_icon_spacing = dpi(4)
+theme.wibar_opacity = 0.8
+theme.wibar_height = dpi(24)
 -- }}}
 
 -- {{{ Layout
